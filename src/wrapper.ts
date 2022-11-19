@@ -61,8 +61,10 @@ export default class Wrapper {
       }
 
       return null;
-    } catch (e) {
-      return Promise.reject(e);
+    } catch (err) {
+      if (axios.isAxiosError(err)) throw new Error(err.message);
+      if (err instanceof Error) throw new Error(err.message);
+      throw new Error("Unexpected error");
     }
   }
 
@@ -76,7 +78,7 @@ export default class Wrapper {
 
       return;
     } catch (e) {
-      return Promise.reject("Failed authentication");
+      throw new Error("Failed authentication");
     }
   }
 
@@ -118,7 +120,9 @@ export default class Wrapper {
 
       return [];
     } catch (err) {
-      return Promise.reject(err);
+      if (axios.isAxiosError(err)) throw new Error(err.message);
+      if (err instanceof Error) throw new Error(err.message);
+      throw new Error("Unexpected error");
     }
   }
 
@@ -145,7 +149,9 @@ export default class Wrapper {
 
       return null;
     } catch (err) {
-      return Promise.reject(err);
+      if (axios.isAxiosError(err)) throw new Error(err.message);
+      if (err instanceof Error) throw new Error(err.message);
+      throw new Error("Unexpected error");
     }
   }
 
@@ -165,7 +171,9 @@ export default class Wrapper {
 
       return null;
     } catch (err) {
-      return Promise.reject(err);
+      if (axios.isAxiosError(err)) throw new Error(err.message);
+      if (err instanceof Error) throw new Error(err.message);
+      throw new Error("Unexpected error");
     }
   }
 
@@ -183,7 +191,9 @@ export default class Wrapper {
 
       return null;
     } catch (err) {
-      return Promise.reject(err);
+      if (axios.isAxiosError(err)) throw new Error(err.message);
+      if (err instanceof Error) throw new Error(err.message);
+      throw new Error("Unexpected error");
     }
   }
 
@@ -201,7 +211,9 @@ export default class Wrapper {
 
       return null;
     } catch (err) {
-      return Promise.reject(err);
+      if (axios.isAxiosError(err)) throw new Error(err.message);
+      if (err instanceof Error) throw new Error(err.message);
+      throw new Error("Unexpected error");
     }
   }
 
@@ -371,7 +383,9 @@ export default class Wrapper {
 
       return responseBack;
     } catch (err) {
-      return Promise.reject(err);
+      if (axios.isAxiosError(err)) throw new Error(err.message);
+      if (err instanceof Error) throw new Error(err.message);
+      throw new Error("Unexpected error");
     }
   }
 
@@ -391,7 +405,9 @@ export default class Wrapper {
 
       return null;
     } catch (err) {
-      return Promise.reject(err);
+      if (axios.isAxiosError(err)) throw new Error(err.message);
+      if (err instanceof Error) throw new Error(err.message);
+      throw new Error("Unexpected error");
     }
   }
 
@@ -416,7 +432,9 @@ export default class Wrapper {
 
       return null;
     } catch (err) {
-      return Promise.reject(err);
+      if (axios.isAxiosError(err)) throw new Error(err.message);
+      if (err instanceof Error) throw new Error(err.message);
+      throw new Error("Unexpected error");
     }
   }
 }
