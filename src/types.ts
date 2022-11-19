@@ -57,12 +57,12 @@ export type CTOrderProduct = {
 export type CTOrderCreate = {
   idPedido: number;
   almacen?: string;
-  tipoPago: "01" | "02" | "03" | "04";
+  tipoPago: "01" | "02" | "03" | "04" | "99";
   producto: CTOrderProduct[];
 };
 
 export type CTOrderPayload = {
-  idPedido: string | number;
+  idPedido: number;
   almacen: string;
   tipoPago: string;
   envio?: CTShipping[];

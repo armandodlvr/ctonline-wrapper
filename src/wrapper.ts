@@ -327,14 +327,10 @@ export default class Wrapper {
     order: CTOrderCreate,
     selectedWarehouse: SelectWarehouse
   ): CTOrderPayload {
-    const transformIdPedido = order.idPedido
-      .toString()
-      .replace(/-|_|[a-zA-Z]/g, "");
-
     return {
-      idPedido: Number(transformIdPedido),
+      idPedido: order.idPedido,
       almacen: selectedWarehouse.almacen,
-      tipoPago: "99",
+      tipoPago: order.tipoPago,
       envio: [],
       producto: selectedWarehouse.producto,
     };
