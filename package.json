@@ -9,7 +9,8 @@
   ],
   "scripts": {
     "build": "tsc",
-    "prepare": "npm run build"
+    "prepare": "npm run build",
+    "test": "jest"
   },
   "engines": {
     "node": ">=14.0.0"

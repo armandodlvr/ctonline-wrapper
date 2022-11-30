@@ -84,7 +84,7 @@ export default class Wrapper {
 
   private reduceWarehouse(
     productByWarehouse: CTProductStock,
-    removeWarehouse: string[]
+    removeWarehouse: string[] = []
   ): StandarStock[] {
     const wareHouses = Object.keys(productByWarehouse);
     const stockWarehouse = [];
