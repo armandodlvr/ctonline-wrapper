@@ -77,7 +77,14 @@ export type CTOrders = {
   respuestaCT: {
     pedidoWeb: string;
     estatus: string;
+    errores?: CTErrores[];
   };
+};
+
+export type CTErrores = {
+  errorCode: number;
+  errorMessage: string;
+  errorReference: string;
 };
 
 export type CTGeneralResponse = {

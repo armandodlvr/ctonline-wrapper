@@ -7,7 +7,8 @@ import type { ApiCredentials, FtpCredentials } from "./types";
 /**
  * Get an instance of the CT Online library
  * @class
- * @param {string} apiKey Test or Live key.
+ * @param {Object} apiCredentials API Credentials.
+ * @param {Object} ftpCredentials FTP Credentials.
  * @returns {CTOnlineWrapper} Instance of this library
  */
 
