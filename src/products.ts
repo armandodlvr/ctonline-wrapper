@@ -11,6 +11,10 @@ export default class Products {
     return this.wrapper.getCatalog();
   }
 
+  getCatalogByCode() {
+    return this.wrapper.getCatalogByCode;
+  }
+
   getStock(clavect: string, removeWarehouse: string[] = []) {
     return this.wrapper.getStock(clavect, removeWarehouse);
   }
