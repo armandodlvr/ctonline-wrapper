@@ -8,7 +8,8 @@ import type {
   StandarStock,
   CTProductStock,
   CTProductStock2,
-  StandardizeCatalog,
+  StandardProduct,
+  GroupProductsByCode,
   CTPackaging,
   CTOrders,
   CTOrderCreate,
@@ -18,7 +19,12 @@ import type {
   SelectWarehouse,
   CTOrderProduct,
 } from "./types";
-import { deleteFile, downloadFile, readJSON } from "./utils";
+import {
+  deleteFile,
+  downloadFile,
+  getListOfProducts,
+  getProductsByCode,
+} from "./utils";
 
 const BASE_URL = "http://connect.ctonline.mx:3001";
 
@@ -171,7 +177,7 @@ export default class Wrapper {
 
   async getCatalog(
     localPath: string = "/tmp/productos.json"
-  ): Promise<StandardizeCatalog[]> {
+  ): Promise<StandardProduct[]> {
     try {
       // Delete file if exists
       await deleteFile(localPath);
@@ -179,11 +185,29 @@ export default class Wrapper {
       // Download file from CT FTP
       await downloadFile("catalogo_xml/productos.json", localPath, this.ftp);
 
-      const data = await readJSON(localPath);
+      const data = await getListOfProducts(localPath);
 
       return data;
     } catch (e) {
       return [];
+    }
+  }
+
+  async getCatalogByCode(
+    localPath: string = "/tmp/productos.json"
+  ): Promise<GroupProductsByCode> {
+    try {
+      // Delete file if exists
+      await deleteFile(localPath);
+
+      // Download file from CT FTP
+      await downloadFile("catalogo_xml/productos.json", localPath, this.ftp);
+
+      const data = await getProductsByCode(localPath);
+
+      return data;
+    } catch (e) {
+      return {};
     }
   }
 

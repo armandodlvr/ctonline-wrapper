@@ -1,4 +1,4 @@
-# CTOnlineWrapper
+# CT Online wrapper
 
 This is the unofficial Node.js wrapper for CT Online API
 
@@ -10,7 +10,7 @@ npm install --save ctonline-wrapper
 
 ## Getting started
 
-### Authenticate with your credentials (provided by CT)
+### Authenticate with your credentials (provided by CT Internacional)
 
 ```javascript
 import CTOnlineWrapper from "ctonline-wrapper";

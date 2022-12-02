@@ -5,7 +5,8 @@ import type {
   FtpCredentials,
   StandarStock,
   CTProduct,
-  StandardizeCatalog,
+  StandardProduct,
+  GroupProductsByCode,
 } from "./types";
 
 export function deleteFile(localPath: string): Promise<void> {
@@ -86,37 +87,41 @@ function inStockAndbyWarehouse(ctProduct: CTProduct): {
   return { inStock, StockWarehouse };
 }
 
-export async function readJSON(path: string): Promise<StandardizeCatalog[]> {
+export async function getListOfProducts(
+  path: string
+): Promise<StandardProduct[]> {
   try {
     if (fs.existsSync(path)) {
       const ctJSON = fs.readFileSync(path, "utf8");
       const parseCTfile = JSON.parse(ctJSON);
 
-      const standardizeCatalog: StandardizeCatalog[] = [];
+      const standardizeCatalog: StandardProduct[] = [];
 
       for (const ctProducts of parseCTfile) {
         const { inStock, StockWarehouse } = inStockAndbyWarehouse(ctProducts);
 
-        standardizeCatalog.push({
-          code: ctProducts.clave,
-          sku: ctProducts.numParte,
-          name: ctProducts.nombre,
-          model: ctProducts.modelo,
-          brand: ctProducts.marca,
-          category: ctProducts.categoria,
-          subcategory: ctProducts.subcategoria,
-          description: ctProducts.descripcion_corta,
-          ean: ctProducts.ean,
-          upc: ctProducts.upc,
-          substitute: ctProducts.sustituto,
-          cost: ctProducts.precio,
-          inStock,
-          byWarehouse: StockWarehouse,
-          currency: ctProducts.moneda,
-          exchangeRate: ctProducts.tipoCambio,
-          specs: ctProducts.especificaciones,
-          image: ctProducts.imagen,
-        });
+        if (inStock > 0) {
+          standardizeCatalog.push({
+            code: ctProducts.clave,
+            sku: ctProducts.numParte,
+            name: ctProducts.nombre,
+            model: ctProducts.modelo,
+            brand: ctProducts.marca,
+            category: ctProducts.categoria,
+            subcategory: ctProducts.subcategoria,
+            description: ctProducts.descripcion_corta,
+            ean: ctProducts.ean,
+            upc: ctProducts.upc,
+            substitute: ctProducts.sustituto,
+            cost: ctProducts.precio,
+            inStock,
+            byWarehouse: StockWarehouse,
+            currency: ctProducts.moneda,
+            exchangeRate: ctProducts.tipoCambio,
+            specs: ctProducts.especificaciones,
+            image: ctProducts.imagen,
+          });
+        }
       }
 
       return standardizeCatalog;
@@ -125,5 +130,40 @@ export async function readJSON(path: string): Promise<StandardizeCatalog[]> {
     return [];
   } catch (e) {
     return [];
+  }
+}
+
+export async function getProductsByCode(
+  path: string
+): Promise<GroupProductsByCode> {
+  try {
+    if (fs.existsSync(path)) {
+      const ctJSON = fs.readFileSync(path, "utf8");
+      const parseCTfile = JSON.parse(ctJSON);
+
+      let groupProductsByCode: GroupProductsByCode = {};
+
+      for (const ctProducts of parseCTfile) {
+        const newField = groupProductsByCode[ctProducts.clave];
+
+        if (!newField) {
+          const { inStock, StockWarehouse } = inStockAndbyWarehouse(ctProducts);
+
+          groupProductsByCode[ctProducts.clave] = {
+            cost: ctProducts.precio,
+            inStock,
+            byWarehouse: StockWarehouse,
+            currency: ctProducts.moneda,
+            exchangeRate: ctProducts.tipoCambio,
+          };
+        }
+      }
+
+      return groupProductsByCode;
+    }
+
+    return {};
+  } catch (e) {
+    return {};
   }
 }

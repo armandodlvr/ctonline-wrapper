@@ -130,7 +130,7 @@ export type CTProduct = {
   imagen: string;
 };
 
-export type StandardizeCatalog = {
+export type StandardProduct = {
   code: string;
   sku: string;
   name: string;
@@ -149,4 +149,14 @@ export type StandardizeCatalog = {
   exchangeRate: number;
   specs?: { tipo: string; valor: string }[] | null;
   image: string;
+};
+
+export type GroupProductsByCode = {
+  [key: string]: {
+    cost: number;
+    inStock: number;
+    byWarehouse: StandarStock[];
+    currency: string;
+    exchangeRate: number;
+  };
 };
