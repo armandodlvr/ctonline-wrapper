@@ -30,6 +30,18 @@ const ftpCredentials = {
 const ctOnlineWrapper = new CTOnlineWrapper(apiCredentials, ftpCredentials);
 ```
 
+### Get catalog (Array of products - complete product information)
+
+```javascript
+const getCatalog = await ctOnlineWrapper.products.getCatalog();
+```
+
+### Get catalog by code (Object of products by code as a key)
+
+```javascript
+const getCatalogByCode = await ctOnlineWrapper.products.getCatalogByCode();
+```
+
 ### Get product stock
 
 ```javascript

@@ -7,6 +7,11 @@
   "files": [
     "build/src"
   ],
+  "keywords": [
+    "CT Internacional",
+    "CT Online",
+    "CT"
+  ],
   "scripts": {
     "build": "tsc",
     "prepare": "npm run build",
@@ -21,6 +26,9 @@
   },
   "author": "Armando de la Vega <armando@nuberti.com>",
   "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nuberti/ctonline-wrapper/issues"
+  },
   "homepage": "https://github.com/nuberti/ctonline-wrapper#readme",
   "dependencies": {
     "axios": "^1.2.0",
