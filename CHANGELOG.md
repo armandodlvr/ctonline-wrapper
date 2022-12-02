@@ -7,6 +7,8 @@ and adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## Unreleased
 
+## [1.3.0] - 2022-12-02
+
 - Add Get Catalog (FTP)
 - Updated dependencies
 
