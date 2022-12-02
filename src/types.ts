@@ -102,3 +102,61 @@ export type SelectWarehouse = {
   almacen: string;
   producto: CTOrderProduct[];
 };
+
+export type CTProduct = {
+  idProducto: number;
+  clave: string;
+  numParte: string;
+  nombre: string;
+  modelo: string;
+  idMarca: number;
+  marca: string;
+  idSubCategoria: number;
+  subcategoria: string;
+  idCategoria: number;
+  categoria: string;
+  descripcion_corta: string;
+  ean: string | null;
+  upc: string | null;
+  sustituto?: string | null;
+  activo: number;
+  protegido: number;
+  existencia: { [key: string]: number };
+  precio: number;
+  moneda: string;
+  tipoCambio: number;
+  especificaciones?: { tipo: string; valor: string }[] | null;
+  promociones?: [] | null;
+  imagen: string;
+};
+
+export type StandardProduct = {
+  code: string;
+  sku: string;
+  name: string;
+  model: string;
+  brand: string;
+  category: string;
+  subcategory: string;
+  description: string;
+  ean: string | null;
+  upc: string | null;
+  substitute: string | null;
+  cost: number;
+  inStock: number;
+  byWarehouse: StandarStock[];
+  currency: number;
+  exchangeRate: number;
+  specs?: { tipo: string; valor: string }[] | null;
+  image: string;
+};
+
+export type GroupProductsByCode = {
+  [key: string]: {
+    cost: number;
+    inStock: number;
+    byWarehouse: StandarStock[];
+    currency: string;
+    exchangeRate: number;
+  };
+};

@@ -17,8 +17,8 @@ export default class CTOnlineWrapper {
   orders: Orders;
 
   constructor(apiCredentials: ApiCredentials, ftpCredentials: FtpCredentials) {
-    const wrapper = new Wrapper(apiCredentials);
-    this.products = new Products(wrapper, ftpCredentials);
+    const wrapper = new Wrapper(apiCredentials, ftpCredentials);
+    this.products = new Products(wrapper);
     this.orders = new Orders(wrapper);
   }
 }

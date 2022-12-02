@@ -1,4 +1,4 @@
-# CTOnlineWrapper
+# CT Online wrapper
 
 This is the unofficial Node.js wrapper for CT Online API
 
@@ -10,7 +10,7 @@ npm install --save ctonline-wrapper
 
 ## Getting started
 
-### Authenticate with your credentials (provided by CT)
+### Authenticate with your credentials (provided by CT Internacional)
 
 ```javascript
 import CTOnlineWrapper from "ctonline-wrapper";
@@ -28,6 +28,18 @@ const ftpCredentials = {
 };
 
 const ctOnlineWrapper = new CTOnlineWrapper(apiCredentials, ftpCredentials);
+```
+
+### Get catalog (Array of products - complete product information)
+
+```javascript
+const getCatalog = await ctOnlineWrapper.products.getCatalog();
+```
+
+### Get catalog by code (Object of products by code as a key)
+
+```javascript
+const getCatalogByCode = await ctOnlineWrapper.products.getCatalogByCode();
 ```
 
 ### Get product stock

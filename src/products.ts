@@ -1,12 +1,18 @@
 import Wrapper from "./wrapper";
 
-import type { FtpCredentials } from "./types";
-
 export default class Products {
   wrapper: Wrapper;
 
-  constructor(wrapper: Wrapper, _ftpCredentials: FtpCredentials) {
+  constructor(wrapper: Wrapper) {
     this.wrapper = wrapper;
+  }
+
+  getCatalog() {
+    return this.wrapper.getCatalog();
+  }
+
+  getCatalogByCode() {
+    return this.wrapper.getCatalogByCode;
   }
 
   getStock(clavect: string, removeWarehouse: string[] = []) {

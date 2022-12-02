@@ -4,9 +4,12 @@ import * as NodeCache from "node-cache";
 import type { AxiosInstance } from "axios";
 import type {
   ApiCredentials,
+  FtpCredentials,
   StandarStock,
   CTProductStock,
   CTProductStock2,
+  StandardProduct,
+  GroupProductsByCode,
   CTPackaging,
   CTOrders,
   CTOrderCreate,
@@ -16,6 +19,12 @@ import type {
   SelectWarehouse,
   CTOrderProduct,
 } from "./types";
+import {
+  deleteFile,
+  downloadFile,
+  getListOfProducts,
+  getProductsByCode,
+} from "./utils";
 
 const BASE_URL = "http://connect.ctonline.mx:3001";
 
@@ -29,8 +38,9 @@ export default class Wrapper {
     client: string;
     rfc: string;
   };
+  private ftp: FtpCredentials;
 
-  constructor(apiCredentials: ApiCredentials) {
+  constructor(apiCredentials: ApiCredentials, ftpCredentials: FtpCredentials) {
     this.client = axios.create({
       baseURL: BASE_URL,
     });
@@ -40,7 +50,13 @@ export default class Wrapper {
       client: apiCredentials.account,
       rfc: apiCredentials.rfc,
     };
+
+    this.ftp = ftpCredentials;
   }
+
+  /**
+   * Auth
+   */
 
   private async auth(): Promise<string | null> {
     try {
@@ -81,6 +97,10 @@ export default class Wrapper {
       throw new Error("Failed authentication");
     }
   }
+
+  /**
+   * Products
+   */
 
   private reduceWarehouse(
     productByWarehouse: CTProductStock,
@@ -155,6 +175,46 @@ export default class Wrapper {
     }
   }
 
+  async getCatalog(
+    localPath: string = "/tmp/productos.json"
+  ): Promise<StandardProduct[]> {
+    try {
+      // Delete file if exists
+      await deleteFile(localPath);
+
+      // Download file from CT FTP
+      await downloadFile("catalogo_xml/productos.json", localPath, this.ftp);
+
+      const data = await getListOfProducts(localPath);
+
+      return data;
+    } catch (e) {
+      return [];
+    }
+  }
+
+  async getCatalogByCode(
+    localPath: string = "/tmp/productos.json"
+  ): Promise<GroupProductsByCode> {
+    try {
+      // Delete file if exists
+      await deleteFile(localPath);
+
+      // Download file from CT FTP
+      await downloadFile("catalogo_xml/productos.json", localPath, this.ftp);
+
+      const data = await getProductsByCode(localPath);
+
+      return data;
+    } catch (e) {
+      return {};
+    }
+  }
+
+  /**
+   * Utils
+   */
+
   async getPackaging(clavect: string): Promise<CTPackaging | null> {
     try {
       await this.defineHeaders();
@@ -176,6 +236,10 @@ export default class Wrapper {
       throw new Error("Unexpected error");
     }
   }
+
+  /**
+   * Orders
+   */
 
   async getOrders(): Promise<CTOrders | null> {
     try {
