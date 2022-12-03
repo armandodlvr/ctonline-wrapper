@@ -6,7 +6,7 @@ export type ApiCredentials = {
 
 export type FtpCredentials = {
   host: string;
-  username: string;
+  user: string;
   password: string;
 };
 

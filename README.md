@@ -23,7 +23,7 @@ const apiCredentials = {
 
 const ftpCredentials = {
   host: "127.0.0.1",
-  username: "HMO0001",
+  user: "HMO0001",
   password: "testT3st",
 };
 
